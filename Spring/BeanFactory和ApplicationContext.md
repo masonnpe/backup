@@ -1,0 +1,38 @@
+## BeanFactory
+
+BeanFactory提供了最简单的容器的功能，只提供了实例化对象和拿对象的功能，但通常在Spring应用程序中仅使用BeanFactory是不够的。
+
+BeanFactory在启动的时候不会去实例化Bean，只有从容器中拿Bean的时候才会去实例化
+
+* 应用启动的时候占用资源很少；对资源要求较高的应用，比较有优势
+
+## ApplicationContext
+
+ApplicationContext（应用上下文）继承众多接口（包括BeanFactory接口），它是Spring的一各更高级的容器，提供了更多的有用的功能
+
+```java
+public interface ApplicationContext extends EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory, MessageSource, ApplicationEventPublisher, ResourcePatternResolver
+```
+
+**HierarchicalBeanFactory**
+
+BeanFactory的子接口HierarchicalBeanFactory是一个具有层级关系的Bean 工厂，拥有属性parentBeanFactory。当获取 Bean对象时，如果当前BeanFactory中不存在对应的bean，则会访问其直接 parentBeanFactory 以尝试获取bean 对象。此外，还可以在当前的 BeanFactory 中 override 父级BeanFactory的同名bean。
+
+**ListableBeanFactory**
+
+ListableBeanFactory 继承了BeanFactory，实现了枚举方法可以列举出当前BeanFactory中所有的bean对象而不必根据name一个一个的获取。 如果 ListableBeanFactory 对象还是一个HierarchicalBeanFactory则getBeanDefinitionNames()方法只会返回当前BeanFactory中的Bean对象而不会去父级BeanFactory中查询。
+
+- 首先，它是个BeanFactory，可以管理、装配bean，可以有父级BeanFactory实现Bean的层级管理（具体到这里来说它可以有父级的ApplicationContext，因为ApplicationContext本身就是一个BeanFactory。这在web项目中很有用，可以使每个Servlet具有其独立的context, 所有Servlet共享一个父级的context），它还是Listable的，可以枚举出所管理的bean对象。载入多个（有继承关系）上下文 ，使得每一个上下文专注于一个特定的层次，比如应用的web层  
+- EnvironmentCapable：这是一个Environment Holder，只有一个方法Environment getEnvironment() 用来获取Environment对象，提供当前Application运行的所需环境，Environment继承了PropertyResolver（配置文件解析器的最顶级接口，解析配置文件获取属性值等作用）。
+- MessageSource：用于支撑国际化等功能
+- ApplicationEventPublisher：可以发布事件给注册的Listener，实现监听机制。
+- ResourcePatternResolver：其中ResourceLoader用于从一个源（如InputStream等）加载资源文件，ResourcePatternResolver 是ResourceLoader的子类，根据 path-pattern 加载资源文件。
+
+ApplicationContext在启动的时候就把所有的Bean全部实例化了。但是它可以为Bean配置lazy-init=true来让Bean延迟实例化
+
+- 所有的Bean在启动的时候都加载，系统运行的速度快； 
+- 在启动的时候所有的Bean都加载了，我们就能在系统启动的时候，尽早的发现系统中的配置问题 
+- 建议web应用，在启动的时候就把所有的Bean都加载了，把费时的操作放到系统启动中完成
+
+ApplicationContext优于BeanFactory，但是它的内存消耗比bean工厂大，如果程序对于内存的使用对于非常挑剔(如applet或移动环境)，可以使用BeanFactory，否则一般情况下应使用ApplicationContext。
+

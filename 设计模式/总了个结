@@ -1,0 +1,89 @@
+继承：三角箭头 空心 实线
+
+实现：三角箭头 空心 虚线
+
+组合：棱形 实心 实线
+
+聚合：棱形 空心 实线
+
+关联：箭头 实线
+
+依赖：箭头 虚线
+
+- **适配器模式：**
+
+[深入理解适配器模式——加个“适配器”以便于复用](https://segmentfault.com/a/1190000011856448)
+
+[适配器模式原理及实例介绍-IBM](https://www.ibm.com/developerworks/cn/java/j-lo-adapter-pattern/index.html)
+
+- **桥接模式：**
+
+[设计模式笔记16：桥接模式(Bridge Pattern)](https://blog.csdn.net/yangzl2008/article/details/7670996)
+
+- **组合模式：**
+
+[大话设计模式—组合模式](https://blog.csdn.net/lmb55/article/details/51039781)
+
+- **装饰模式：**
+
+[java模式—装饰者模式](https://www.cnblogs.com/chenxing818/p/4705919.html)
+
+[Java设计模式-装饰者模式](https://blog.csdn.net/cauchyweierstrass/article/details/48240147)
+
+- **代理模式：**
+
+[代理模式原理及实例讲解 （IBM出品，很不错）](https://www.ibm.com/developerworks/cn/java/j-lo-proxy-pattern/index.html)
+
+[轻松学，Java 中的代理模式及动态代理](https://blog.csdn.net/briblue/article/details/73928350)
+
+[Java代理模式及其应用](https://blog.csdn.net/justloveyou_/article/details/74203025)
+
+
+
+
+
+https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md
+
+
+
+深拷贝与浅拷贝问题中，会发生深拷贝的有java中的8中基本类型以及他们的封装类型，另外还有String类型。其余的都是浅拷贝
+
+简单工厂 创建对象放在factory里   beanfactory
+工厂方法 创建对象放在factory的子类里     collection集合类的iterator  factorybean     product  factory都要抽象  
+抽象工厂 适用于产品族  数据库连接 Connection  sqlsessionfactory  
+
+观察者模式  subject  :addObserver delObserver notify    observer: update         ApplicationListener
+
+访问者模式  Element有accept(Visitor visitor)  Visitory有visit(XXX xxx)   两次动态分派
+
+命令模式 将请求封装成一个对账    统一网关的Ep100Request  Runnable
+
+责任链模式  有  nexthandler     handleRequest   setnexthandler
+
+策略模式  有个封装类  context  抽线策略类 strategy 具体 ConcreteStrategy   与模板模式的区别是 把具体方法单独抽到另一个类里 
+SimpleInstantiationStrategy  Spring中在实例化对象的时候用到Strategy模式
+
+适配器模式   适配接口用   实现类构造函数传别的对象  方法实现调对象的方法  AdviceAdapter handlerAdapter
+aop  由于Advisor链需要的是MethodInterceptor（拦截器）对象，所以每一个Advisor中的Advice都要适配成对应的MethodInterceptor对象。
+
+模板方法  redistemplate jdbctemplate
+
+桥接  抽象和具体实现分离 而不是使用继承   jdbc的driver
+
+代理模式  aop   jdkproxy  cglibproxy     
+
+单例模式  getSingleton spring依赖注入时，使用了 多重判断加锁 的单例模式。
+享元模式  复用对象  FlyweightFactory通过 hashmap  维护   没有的创建  放hashmap  有的从hashmap取  Integer的创建
+
+建造者模式  cachebuilder    beandefinitionbuilder  
+
+原型模式  要克隆   实现clonable接口 重写clone方法   有的字段还需要深克隆  适用于复杂对象的创建  
+
+外观模式  封装方法   tomcatRequestFacade  
+
+装饰器模式   继承扩展功能   动态增加功能      一个抽象类    一个扩展的装饰类  分类实现          与代理模式的区别   一个是动态添加   一个控制访问  与适配器区别     io mybatis  cache  
+
+组合模式  多个对象组合成一个对象  arraylist   putall  
+
+
+
